@@ -2,17 +2,18 @@ import { GraphNode } from "./GraphNode";
 import { graphInit } from "./graphInit";
 import { Edge } from "./Edge";
 import { sigmoid, derivativeSigmoid } from "./functionNode";
-import * as fs from 'fs'
+import * as fs from 'fs';
 
 let graph: GraphNode[] = graphInit();
 const answer: number[] = [1, 0];
 const eps: number = 0.7;
 const moment: number = 0.3;
-const year: number = 1;
+const year: number = 2;
 
 function baseNet() {
-    fs.writeFile('./log.txt', '', (err) => console.log(err))
+    fs.writeFile('./log.txt', '', (err: Error) => console.log(err));
     for (let i: number = 1; i <= year; i++) {
+        fs.appendFileSync('./log.txt', `Итерация №${i}:\n`);
         graph[0].input = 0;
         graph[0].output = 0;
         graph[1].input = 1;
@@ -26,6 +27,8 @@ function baseNet() {
         for (let j: number = 0; j < 10; j++) {
             used.push(false);
         }
+
+
         while (queue.length != 0) {
             let graphNode: GraphNode = graph[queue[0]];
             let edges: Edge[] = graphNode.edges;
@@ -43,6 +46,14 @@ function baseNet() {
                 }
             }
         }
+        graph.forEach((value: GraphNode) => {
+            fs.appendFileSync("./log.txt", ' \n' + value.countNumber + ', ' + value.delta + ', ' + value.input + ', ' + value.output + '\n edges: \n');
+            value.edges.forEach((edge: Edge) => {
+                fs.appendFileSync("./log.txt", edge.node + ', ' + edge.gradient + ', ' + edge.weight + '\n');
+            })
+
+        });
+
         used.fill(false);
         queue = [4];
         used[4] = true;
@@ -63,14 +74,20 @@ function baseNet() {
                 graphNode.delta = delta * derivativeSigmoid(graphNode.input);
             }
             for (let j: number = 0; j < edges.length; j++) {
-                if (!used[edges[j].node]) {
+                if (used[edges[j].node]) {
                     edges[j].gradient = graphNode.delta * graph[edges[j].node].output;
                     queue.push(edges[j].node);
                     used[edges[j].node] = true;
                 }
             }
         }
-        console.log(graph)
+        graph.forEach((value: GraphNode) => {
+            fs.appendFileSync("./log.txt", ' \n' + value.countNumber + ', ' + value.delta + ', ' + value.input + ', ' + value.output + '\n edges: \n');
+            value.edges.forEach((edge: Edge) => {
+                fs.appendFileSync("./log.txt", edge.node + ', ' + edge.gradient + ', ' + edge.weight + '\n\n');
+            })
+
+        });
 
         used.fill(false);
         queue = [0, 1];
@@ -82,13 +99,21 @@ function baseNet() {
             edges.forEach((value: Edge) => {
                 if (!used[value.node]) {
                     let delta: number = eps * value.gradient + moment * (value.weight[i] - value.weight[i - 1]);
+                    console.log(delta);
                     value.weight.push(value.weight[i] + delta);
                     queue.push(value.node);
                     used[value.node] = true;
                 }
             })
         }
-        fs.appendFileSync('./log.txt', `Итерация №${i}: output = ${graph[4].output}\n`)
+        graph.forEach((value: GraphNode) => {
+            fs.appendFileSync("./log.txt", ' \n' + value.countNumber + ', ' + value.delta + ', ' + value.input + ', ' + value.output + '\n edges: \n');
+            value.edges.forEach((edge: Edge) => {
+                fs.appendFileSync("./log.txt", edge.node + ', ' + edge.gradient + ', ' + edge.weight + '\n');
+            })
+
+        });
+
     }
 }
 baseNet();
