@@ -19,7 +19,7 @@ function baseNet() {
         graph[1].input = 1;
         graph[1].output = 1;
         graph[2].input = 0;
-        graph[3].input = 0;
+        graph[3].input = 1;
         graph[4].input = 0;
 
         let used: boolean[] = [true, true];

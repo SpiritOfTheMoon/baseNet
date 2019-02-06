@@ -8,10 +8,21 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\src\\index.ts",
+            "program": "${workspaceFolder}/src/index.ts",
+            "cwd": "${workspaceRoot}",
+            "args": [
+                "${relativeFile}"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "protocol": "inspector",
             "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+                "${workspaceFolder}/dist/**/*.js"
+            ],
+            "sourceMaps": true,
         }
     ]
 }
