@@ -1,21 +1,22 @@
 {
-  "name": "base-net",
-  "version": "0.0.1",
-  "description": "base neyro net",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch index.ts"
-  },
-  "keywords": [
-    "net",
-    "xor"
-  ],
-  "author": "spirit of the moon",
-  "license": "ISC",
-  "dependencies": {
-    "nodemon": "^1.18.9",
-    "ts-node": "7.0.1",
-    "typescript": "^3.2.2"
-  }
+    "name": "base-net",
+    "version": "0.0.1",
+    "description": "base neyro net",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon --watch index.ts",
+        "start": "ts-node ./src/index.ts"
+    },
+    "keywords": [
+        "net",
+        "xor"
+    ],
+    "author": "spirit of the moon",
+    "license": "ISC",
+    "dependencies": {
+        "nodemon": "^1.18.9",
+        "ts-node": "7.0.1",
+        "typescript": "^3.2.2"
+    }
 }
