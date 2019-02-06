@@ -1,7 +1,7 @@
 import { GraphNode } from "./GraphNode";
 
 export function graphInit(): GraphNode[] {
-    let graph: GraphNode[] = [];
+    const graph: GraphNode[] = [];
     for (let i: number = 0; i < 5; i++) {
         graph.push(new GraphNode(i));
     }

@@ -1,5 +1,3 @@
-import { GraphNode } from "./GraphNode";
-
 export class Edge {
     public node: number;
     public weight: number[];
