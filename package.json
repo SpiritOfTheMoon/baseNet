@@ -4,7 +4,8 @@
   "description": "base neyro net",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch index.ts"
   },
   "keywords": [
     "net",
@@ -13,6 +14,7 @@
   "author": "spirit of the moon",
   "license": "ISC",
   "dependencies": {
+    "nodemon": "^1.18.9",
     "ts-node": "7.0.1",
     "typescript": "^3.2.2"
   }
