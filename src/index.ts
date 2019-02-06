@@ -2,6 +2,7 @@ import { GraphNode } from "./GraphNode";
 import { graphInit } from "./graphInit";
 import { Edge } from "./Edge";
 import { sigmoid, derivativeSigmoid } from "./functionNode";
+import * as fs from 'fs'
 
 let graph: GraphNode[] = graphInit();
 const answer: number[] = [1, 0];
@@ -10,17 +11,17 @@ const moment: number = 0.3;
 
 function baseNet() {
     let year: number = 20000;
-
+    fs.writeFile('./log.txt', '', (err) => console.log(err))
     for (let i: number = 1; i < year; i++) {
         let used: boolean[] = [true, true];
+        let queue: number[] = [0, 1];
         for (let j: number = 0; j < 10; j++) {
             used.push(false);
         }
-        let queue: number[] = [0, 1];
         while (queue.length != 0) {
             let graphNode: GraphNode = graph[queue[0]];
-            queue.shift();
             let edges: Edge[] = graphNode.edges;
+            queue.shift();
             if (graphNode.countNumber != 0 && graphNode.countNumber != 1) {
                 graphNode.output = sigmoid(graphNode.input);
             }
@@ -32,8 +33,6 @@ function baseNet() {
                 graph[edges[j].node].input += graphNode.input * edges[j].weight[i];
             }
         }
-
-
         used.fill(false);
         queue = [4];
         used[4] = true;
@@ -77,6 +76,7 @@ function baseNet() {
                 }
             })
         }
+        fs.appendFileSync('./log.txt', `Итерация №${i}: output = ${graph[4].output}\n`)
     }
 }
 baseNet();
