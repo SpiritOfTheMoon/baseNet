@@ -8,11 +8,19 @@ let graph: GraphNode[] = graphInit();
 const answer: number[] = [1, 0];
 const eps: number = 0.7;
 const moment: number = 0.3;
+const year: number = 1;
 
 function baseNet() {
-    let year: number = 20000;
     fs.writeFile('./log.txt', '', (err) => console.log(err))
-    for (let i: number = 1; i < year; i++) {
+    for (let i: number = 1; i <= year; i++) {
+        graph[0].input = 0;
+        graph[0].output = 0;
+        graph[1].input = 1;
+        graph[1].output = 1;
+        graph[2].input = 0;
+        graph[3].input = 0;
+        graph[4].input = 0;
+
         let used: boolean[] = [true, true];
         let queue: number[] = [0, 1];
         for (let j: number = 0; j < 10; j++) {
@@ -30,7 +38,9 @@ function baseNet() {
                     queue.push(edges[j].node);
                     used[edges[j].node] = true;
                 }
-                graph[edges[j].node].input += graphNode.input * edges[j].weight[i];
+                if (edges[j].weight[i]) {
+                    graph[edges[j].node].input += graphNode.input * edges[j].weight[i];
+                }
             }
         }
         used.fill(false);
@@ -41,13 +51,14 @@ function baseNet() {
             queue.shift();
             let edges: Edge[] = graphNode.edges;
             if (graphNode.countNumber == 4) {
-                graphNode.delta = (graphNode.output - answer[0]) * derivativeSigmoid(graphNode.input);
+                graphNode.delta = (answer[0] - graphNode.output) * derivativeSigmoid(graphNode.input);
             }
             else {
                 let delta: number = 0;
                 edges.forEach((value: Edge) => {
-                    if (used[value.node])
+                    if (used[value.node] && value.weight[i]) {
                         delta += value.weight[i] * graph[value.node].delta;
+                    }
                 })
                 graphNode.delta = delta * derivativeSigmoid(graphNode.input);
             }
@@ -59,6 +70,7 @@ function baseNet() {
                 }
             }
         }
+        console.log(graph)
 
         used.fill(false);
         queue = [0, 1];
