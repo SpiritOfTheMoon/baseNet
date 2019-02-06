@@ -1,0 +1,19 @@
+{
+  "name": "base-net",
+  "version": "0.0.1",
+  "description": "base neyro net",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "net",
+    "xor"
+  ],
+  "author": "spirit of the moon",
+  "license": "ISC",
+  "dependencies": {
+    "ts-node": "7.0.1",
+    "typescript": "^3.2.2"
+  }
+}
