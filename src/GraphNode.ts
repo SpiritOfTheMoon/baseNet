@@ -1,27 +1,20 @@
 import {Edge} from "./Edge"
 
 export class GraphNode {
-    
-    private countNumber:number;
-    private edges: Edge[];
+    public input: number;
+    public delta: number;
+    public countNumber:number;
+    public edges: Edge[];
+    public output: number;
     
     constructor(countNumber: number){
+        this.input = 0;
+        this.delta = 0;
         this.countNumber = countNumber;
         this.edges = [];
     }
 
     public setEdge(node: number, weight: number[]): void{
         this.edges.push(new Edge(node, weight));
-    }
-
-    public getEdges(): Edge[]{
-        return this.edges;
-    }
-
-    public setCountNumber(countNumber: number): void{
-        this.countNumber = countNumber;
-    }
-    public getCountNumber(): number{
-        return this.countNumber;
     }
 }
