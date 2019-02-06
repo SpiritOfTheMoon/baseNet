@@ -1,6 +1,7 @@
 import {Edge} from "./Edge"
 
 export class GraphNode {
+    
     private countNumber:number;
     private edges: Edge[];
     
