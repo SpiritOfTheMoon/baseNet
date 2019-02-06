@@ -9,3 +9,8 @@ export const hyperbolicTangent = (x: number): number => {
 export const linear = (x: number): number => {
     return x
 }
+
+export const derivativeSigmoid = (x: number): number => {
+    return (1 - x) * x
+}
+
