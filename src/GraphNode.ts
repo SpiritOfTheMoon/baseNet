@@ -9,7 +9,7 @@ export class GraphNode {
         this.edges = [];
     }
 
-    public setEdge(node: GraphNode, weight: number): void{
+    public setEdge(node: number, weight: number[]): void{
         this.edges.push(new Edge(node, weight));
     }
 
