@@ -1,5 +1,5 @@
-import { GraphNode } from "./GraphNode";
 import { Dataset } from "./Dataset";
+import { GraphNode } from "./GraphNode";
 
 export class Network {
     public graph: GraphNode[];
