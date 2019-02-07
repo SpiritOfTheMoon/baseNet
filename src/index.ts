@@ -4,7 +4,9 @@ import { derivativeSigmoid, sigmoid } from "./functionNode";
 import { graphInit } from "./graphInit";
 import { GraphNode } from "./GraphNode";
 import { RootMSE } from "./errorFunction";
+import { Network } from "./Network";
 
+const network: Network = new Network();
 const graph: GraphNode[] = graphInit();
 const answer: number[] = [1, 0];
 const eps: number = 1;
@@ -32,89 +34,88 @@ const print = () => {
 
 const baseNet = () => {
     fs.writeFile("./log.txt", "", (err: Error) => console.log(err));
+    network.graphCreate();
     for (let i: number = 1; i <= year; i++) {
-        fs.appendFileSync("./log.txt", `Итерация №${i}:\n`);
-        graph[0].input = 0;
-        graph[0].output = 0;
-        graph[1].input = 1;
-        graph[1].output = 1;
-        graph[2].input = 0;
-        graph[3].input = 0;
-        graph[4].input = 0;
+        for (let ns: number = 0; ns < network.dataset.length; ns++) {
+            fs.appendFileSync("./log.txt", `Итерация №${i}:\n`);
+            network.graphInit(ns);
 
-        const used: boolean[] = [true, true];
-        let queue: number[] = [0, 1];
-        for (let j: number = 0; j < 10; j++) {
-            used.push(false);
-        }
-
-        while (queue.length !== 0) {
-            const graphNode: GraphNode = graph[queue[0]];
-            const edges: Edge[] = graphNode.edges;
-            queue.shift();
-            if (graphNode.countNumber !== 0 && graphNode.countNumber !== 1) {
-                graphNode.output = sigmoid(graphNode.input);
+            const used: boolean[] = [true, true];
+            let queue: number[] = [0, 1];
+            for (let j: number = 0; j < 10; j++) {
+                used.push(false);
             }
-            for (let j: number = 0; j < edges.length; j++) {
-                if (!used[edges[j].node]) {
-                    queue.push(edges[j].node);
-                    used[edges[j].node] = true;
+
+            while (queue.length !== 0) {
+                const graphNode: GraphNode = graph[queue[0]];
+                const edges: Edge[] = graphNode.edges;
+                queue.shift();
+                if (graphNode.countNumber !== 0 && graphNode.countNumber !== 1) {
+                    graphNode.input += graphNode.bias;
+                    graphNode.output = sigmoid(graphNode.input);
                 }
-                if (edges[j].weight[i]) {
-                    graph[edges[j].node].input += graphNode.input * edges[j].weight[i];
+                for (let j: number = 0; j < edges.length; j++) {
+                    if (!used[edges[j].node]) {
+                        queue.push(edges[j].node);
+                        used[edges[j].node] = true;
+                    }
+                    if (edges[j].weight[i]) {
+                        graph[edges[j].node].input += graphNode.input * edges[j].weight[i];
+                    }
+                }
+
+            }
+
+            used.fill(false);
+            queue = [4];
+            used[4] = true;
+            while (queue.length != 0) {
+                const graphNode: GraphNode = graph[queue[0]];
+                queue.shift();
+                const edges: Edge[] = graphNode.edges;
+                if (graphNode.countNumber == 4) {
+                    graphNode.delta = (answer[0] - graphNode.output) * derivativeSigmoid(graphNode.input);
+                } else {
+                    let delta: number = 0;
+                    edges.forEach((value: Edge) => {
+                        if (used[value.node] && value.weight[i]) {
+                            delta += value.weight[i] * graph[value.node].delta;
+                        }
+                    });
+                    graphNode.delta = delta * derivativeSigmoid(graphNode.input);
+                }
+                for (let j: number = 0; j < edges.length; j++) {
+                    if (used[edges[j].node]) {
+                        edges[j].gradient = graphNode.delta * graph[edges[j].node].output;
+                    }
+                    else {
+                        queue.push(edges[j].node);
+                        used[edges[j].node] = true;
+                    }
                 }
             }
-        }
 
-        used.fill(false);
-        queue = [4];
-        used[4] = true;
-        while (queue.length != 0) {
-            const graphNode: GraphNode = graph[queue[0]];
-            queue.shift();
-            const edges: Edge[] = graphNode.edges;
-            if (graphNode.countNumber == 4) {
-                graphNode.delta = (answer[0] - graphNode.output) * derivativeSigmoid(graphNode.input);
-            } else {
-                let delta: number = 0;
+            used.fill(false);
+            queue = [0, 1];
+            used[0] = used[1] = true;
+            while (queue.length !== 0) {
+                const graphNode: GraphNode = graph[queue[0]];
+                queue.shift();
+                const edges: Edge[] = graphNode.edges;
                 edges.forEach((value: Edge) => {
-                    if (used[value.node] && value.weight[i]) {
-                        delta += value.weight[i] * graph[value.node].delta;
+                    if (value.weight.length > 1) {
+                        const delta: number = eps * value.gradient + moment * (value.weight[i] - value.weight[i - 1]);
+                        value.weight.push(value.weight[i] + delta);
+                    }
+                    if (!used[value.node]) {
+                        queue.push(value.node);
+                        used[value.node] = true;
                     }
                 });
-                graphNode.delta = delta * derivativeSigmoid(graphNode.input);
             }
-            for (let j: number = 0; j < edges.length; j++) {
-                if (used[edges[j].node]) {
-                    edges[j].gradient = graphNode.delta * graph[edges[j].node].output;
-                }
-                else {
-                    queue.push(edges[j].node);
-                    used[edges[j].node] = true;
-                }
-            }
-        }
 
-        used.fill(false);
-        queue = [0, 1];
-        used[0] = used[1] = true;
-        while (queue.length !== 0) {
-            const graphNode: GraphNode = graph[queue[0]];
-            queue.shift();
-            const edges: Edge[] = graphNode.edges;
-            edges.forEach((value: Edge) => {
-                if (value.weight.length > 1) {
-                    const delta: number = eps * value.gradient + moment * (value.weight[i] - value.weight[i - 1]);
-                    value.weight.push(value.weight[i] + delta);
-                }
-                if (!used[value.node]) {
-                    queue.push(value.node);
-                    used[value.node] = true;
-                }
-            });
+            print();
         }
-
-        print();
     }
 };
 baseNet();
