@@ -3,12 +3,13 @@ import { Edge } from "./Edge";
 import { derivativeSigmoid, sigmoid } from "./functionNode";
 import { graphInit } from "./graphInit";
 import { GraphNode } from "./GraphNode";
+import { RootMSE } from "./errorFunction";
 
 const graph: GraphNode[] = graphInit();
 const answer: number[] = [1, 0];
-const eps: number = 0.7;
-const moment: number = 0.3;
-const year: number = 2;
+const eps: number = 1;
+const moment: number = 0.7;
+const year: number = 2000;
 
 const print = () => {
     graph.forEach((value: GraphNode) => {
@@ -16,16 +17,17 @@ const print = () => {
             `countNumber: ${value.countNumber}
         delta: ${value.delta}
         input: ${value.input}
-        output: ${value.output}\n
-        edges:-------------------`);
-        value.edges.forEach((edge: Edge) => {
-            fs.appendFileSync("./log.txt",
-                `
-            node: ${edge.node}
-            gradient: ${edge.gradient}
-            weight: ${edge.weight}\n`);
-        });
+        output: ${value.output}\n`);
+        // edges:-------------------
+        // value.edges.forEach((edge: Edge) => {
+        //     fs.appendFileSync("./log.txt",
+        //         `
+        //     node: ${edge.node}
+        //     gradient: ${edge.gradient}
+        //     weight: ${edge.weight}\n\n`);
+        // });
     });
+    fs.appendFileSync("./log.txt", `error: ${RootMSE([answer[0]], [graph[4].output])}\n`)
 };
 
 const baseNet = () => {
@@ -63,16 +65,15 @@ const baseNet = () => {
                 }
             }
         }
-        print();
 
         used.fill(false);
         queue = [4];
         used[4] = true;
-        while (queue.length !== 0) {
+        while (queue.length != 0) {
             const graphNode: GraphNode = graph[queue[0]];
             queue.shift();
             const edges: Edge[] = graphNode.edges;
-            if (graphNode.countNumber === 4) {
+            if (graphNode.countNumber == 4) {
                 graphNode.delta = (answer[0] - graphNode.output) * derivativeSigmoid(graphNode.input);
             } else {
                 let delta: number = 0;
@@ -86,13 +87,13 @@ const baseNet = () => {
             for (let j: number = 0; j < edges.length; j++) {
                 if (used[edges[j].node]) {
                     edges[j].gradient = graphNode.delta * graph[edges[j].node].output;
+                }
+                else {
                     queue.push(edges[j].node);
                     used[edges[j].node] = true;
                 }
             }
         }
-
-        print();
 
         used.fill(false);
         queue = [0, 1];
@@ -102,10 +103,11 @@ const baseNet = () => {
             queue.shift();
             const edges: Edge[] = graphNode.edges;
             edges.forEach((value: Edge) => {
-                if (!used[value.node]) {
+                if (value.weight.length > 1) {
                     const delta: number = eps * value.gradient + moment * (value.weight[i] - value.weight[i - 1]);
-                    console.log(delta);
                     value.weight.push(value.weight[i] + delta);
+                }
+                if (!used[value.node]) {
                     queue.push(value.node);
                     used[value.node] = true;
                 }
