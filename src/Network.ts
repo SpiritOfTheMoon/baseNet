@@ -31,7 +31,7 @@ export class Network {
             answer: 0
         }, {
             set: [1, 1],
-            answer: 0
+            answer: 1
         }]
         let a = Math.random();
         this.graph[0].setEdge(2, [a, a]);

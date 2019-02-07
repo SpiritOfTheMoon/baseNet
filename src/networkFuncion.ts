@@ -1,10 +1,10 @@
 import { Network } from "./Network";
 import { GraphNode } from "./GraphNode";
 import { Edge } from "./Edge";
-import { sigmoid, derivativeSigmoid } from "./functionNode";
+import { sigmoid, derivativeSigmoid, linear } from "./functionNode";
 
-const eps = 1;
-const moment = 0.7;
+const eps = 0.15;
+const moment = 0.00015;
 
 let used: boolean[] = new Array(10);
 let queue: number[] = [];
@@ -21,7 +21,7 @@ export function inOutFunction(network: Network, i: number) {
         const graphNode: GraphNode = network.graph[queue[0]];
         const edges: Edge[] = graphNode.edges;
         queue.shift();
-        if (network.inputNode.indexOf(graphNode.countNumber) !== -1) {
+        if (network.inputNode.indexOf(graphNode.countNumber) == -1) {
             graphNode.input += graphNode.bias;
             graphNode.output = sigmoid(graphNode.input);
         }
@@ -31,7 +31,7 @@ export function inOutFunction(network: Network, i: number) {
                 used[edges[j].node] = true;
             }
             if (edges[j].weight[i]) {
-                network.graph[edges[j].node].input += graphNode.input * edges[j].weight[i];
+                network.graph[edges[j].node].input += graphNode.output * edges[j].weight[i];
             }
         }
 
@@ -51,7 +51,7 @@ export function deltaFunction(network: Network, i: number, ns: number) {
         const edges: Edge[] = graphNode.edges;
 
         if (network.outputNode.indexOf(graphNode.countNumber) !== -1) {
-            graphNode.delta = (network.dataset[ns].answer - graphNode.output) * derivativeSigmoid(graphNode.input);
+            graphNode.delta = (network.dataset[ns].answer - graphNode.output) * derivativeSigmoid(graphNode.output);
         }
         else {
             let delta: number = 0;
@@ -60,7 +60,7 @@ export function deltaFunction(network: Network, i: number, ns: number) {
                     delta += value.weight[i] * network.graph[value.node].delta;
                 }
             });
-            graphNode.delta = delta * derivativeSigmoid(graphNode.input);
+            graphNode.delta = delta * derivativeSigmoid(graphNode.output);
         }
         for (let j: number = 0; j < edges.length; j++) {
             if (used[edges[j].node]) {
@@ -86,8 +86,8 @@ export function weightFunction(network: Network, i: number, ns: number) {
         const edges: Edge[] = graphNode.edges;
         edges.forEach((value: Edge) => {
             if (value.weight.length > 1) {
-                const delta: number = eps * value.gradient + moment * (value.weight[i] - value.weight[i - 1]);
-                value.weight.push(value.weight[i] + delta);
+                const delta: number = eps * value.gradient + moment * (value.weight[value.weight.length - 1] - value.weight[value.weight.length - 2]);
+                value.weight.push(value.weight[value.weight.length - 1] + delta);
             }
             if (!used[value.node]) {
                 queue.push(value.node);
@@ -95,4 +95,4 @@ export function weightFunction(network: Network, i: number, ns: number) {
             }
         });
     }
-}
+} 
