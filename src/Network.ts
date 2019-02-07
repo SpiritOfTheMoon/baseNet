@@ -18,6 +18,21 @@ export class Network {
         for (let i: number = 0; i < 5; i++) {
             this.graph.push(new GraphNode(i));
         }
+        this.inputNode = [0, 1];
+        this.outputNode = [4];
+        this.dataset = [{
+            set: [0, 1],
+            answer: 1
+        }, {
+            set: [1, 0],
+            answer: 1
+        }, {
+            set: [0, 0],
+            answer: 0
+        }, {
+            set: [1, 1],
+            answer: 0
+        }]
         let a = Math.random();
         this.graph[0].setEdge(2, [a, a]);
         a = Math.random();
