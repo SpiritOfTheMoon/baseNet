@@ -1,9 +1,9 @@
 export const sigmoid = (x: number): number => {
-    return 1 / (1 + Math.exp(-x));
+    return (1 / (1 + Math.pow(Math.E, - x)));
 };
 
 export const hyperbolicTangent = (x: number): number => {
-    return (Math.exp(2 * x) - 1) / (Math.exp(2 * x) + 1);
+    return (Math.pow(Math.E, (2 * x)) - 1) / (Math.pow(Math.E, 2 * x) + 1);
 };
 
 export const linear = (x: number): number => {

@@ -14,43 +14,58 @@ export class Network {
         this.dataset = [];
     }
 
+    /*
+        * персептрон или - weight > 0, eps = 1, moment = 0.3
+    */
+
     public graphCreate() {
-        for (let i: number = 0; i < 5; i++) {
+        for (let i: number = 0; i < 8; i++) {
             this.graph.push(new GraphNode(i));
         }
-        this.inputNode = [0, 1];
+        this.inputNode = [0, 1, 5, 6, 7];
         this.outputNode = [4];
         this.dataset = [{
-            set: [0, 1],
-            answer: 1
-        }, {
-            set: [1, 0],
-            answer: 1
-        }, {
-            set: [0, 0],
+            set: [0, 0, 1, 1, 1],
             answer: 0
         }, {
-            set: [1, 1],
+            set: [0, 1, 1, 1, 1],
             answer: 1
+        }, {
+            set: [1, 0, 1, 1, 1],
+            answer: 1
+        }, {
+            set: [1, 1, 1, 1, 1],
+            answer: 0
         }]
         let a = Math.random();
         this.graph[0].setEdge(2, [a, a]);
         a = Math.random();
         this.graph[0].setEdge(3, [a, a]);
-        a = Math.random();
+        a = Math.random() - 1;
         this.graph[1].setEdge(2, [a, a]);
-        a = Math.random();
+        a = Math.random() - 1;
         this.graph[1].setEdge(3, [a, a]);
         a = Math.random();
         this.graph[2].setEdge(4, [a, a]);
-        a = Math.random();
+        a = Math.random() - 1;
         this.graph[3].setEdge(4, [a, a]);
-        this.graph[2].setEdge(0, [0]);
-        this.graph[2].setEdge(1, [0]);
-        this.graph[3].setEdge(0, [0]);
-        this.graph[3].setEdge(1, [0]);
-        this.graph[4].setEdge(2, [0]);
-        this.graph[4].setEdge(3, [0]);
+        a = Math.random();
+        this.graph[5].setEdge(2, [a, a]);
+        a = Math.random() - 1;
+        this.graph[6].setEdge(3, [a, a]);
+        a = Math.random() - 1;
+        this.graph[7].setEdge(4, [a, a]);
+
+        this.graph[4].setEdge(2, []);
+        this.graph[4].setEdge(3, []);
+        this.graph[4].setEdge(7, []);
+        this.graph[2].setEdge(0, []);
+        this.graph[2].setEdge(1, []);
+        this.graph[3].setEdge(0, []);
+        this.graph[3].setEdge(1, []);
+        this.graph[3].setEdge(6, []);
+        this.graph[2].setEdge(5, []);
+
     }
 
     public graphInit(i: number) {

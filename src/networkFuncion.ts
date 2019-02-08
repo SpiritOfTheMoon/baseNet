@@ -3,8 +3,8 @@ import { GraphNode } from "./GraphNode";
 import { Edge } from "./Edge";
 import { sigmoid, derivativeSigmoid, linear } from "./functionNode";
 
-const eps = 0.15;
-const moment = 0.00015;
+const eps = 1;
+const moment = 0.3;
 
 let used: boolean[] = new Array(10);
 let queue: number[] = [];
@@ -22,7 +22,6 @@ export function inOutFunction(network: Network, i: number) {
         const edges: Edge[] = graphNode.edges;
         queue.shift();
         if (network.inputNode.indexOf(graphNode.countNumber) == -1) {
-            graphNode.input += graphNode.bias;
             graphNode.output = sigmoid(graphNode.input);
         }
         for (let j: number = 0; j < edges.length; j++) {
@@ -64,7 +63,7 @@ export function deltaFunction(network: Network, i: number, ns: number) {
         }
         for (let j: number = 0; j < edges.length; j++) {
             if (used[edges[j].node]) {
-                edges[j].gradient = graphNode.delta * network.graph[edges[j].node].output;
+                edges[j].gradient = graphNode.delta * graphNode.output;
             }
             else {
                 queue.push(edges[j].node);

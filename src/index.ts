@@ -31,15 +31,13 @@ const baseNet = () => {
     fs.writeFile("./log.txt", "", (err: Error) => console.log(err));
     network.graphCreate();
     for (let i: number = 1; i <= year; i++) {
-        fs.appendFileSync("./log.txt", `Итерация №${i}:\n`);
         for (let ns: number = 0; ns < network.dataset.length; ns++) {
             network.graphInit(ns);
-
             inOutFunction(network, i);
             deltaFunction(network, i, ns);
             weightFunction(network, i, ns);
-
-            print();
+            if (i == 2000)
+                print();
         }
     }
 };
