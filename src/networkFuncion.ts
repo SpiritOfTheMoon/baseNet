@@ -6,7 +6,7 @@ import { sigmoid, derivativeSigmoid, linear, leap } from "./functionNode";
 const eps = 1;
 const moment = 0;
 
-let used: boolean[] = new Array(10);
+let used: boolean[] = new Array(1000);
 let queue: number[] = [];
 
 
@@ -86,7 +86,8 @@ export function weightFunction(network: Network, i: number, ns: number) {
         edges.forEach((value: Edge) => {
             if (value.weight.length > 1) {
                 const delta: number = eps * value.gradient + moment * (value.weight[value.weight.length - 1] - value.weight[value.weight.length - 2]);
-                value.weight.push(value.weight[value.weight.length - 1] + delta);
+                value.weight[value.weight.length - 2] = value.weight[value.weight.length - 1];
+                value.weight[value.weight.length - 1] = value.weight[value.weight.length - 1] + delta;
             }
             if (!used[value.node]) {
                 queue.push(value.node);
