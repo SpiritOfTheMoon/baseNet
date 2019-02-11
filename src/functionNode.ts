@@ -14,3 +14,6 @@ export const derivativeSigmoid = (x: number): number => {
     return (1 - x) * x;
 };
 
+export const leap = (x: number): number => {
+    return x >= 0.5 ? 1 : 0;
+}

@@ -1,7 +1,7 @@
 import { Network } from "./Network";
 import { GraphNode } from "./GraphNode";
 import { Edge } from "./Edge";
-import { sigmoid, derivativeSigmoid, linear } from "./functionNode";
+import { sigmoid, derivativeSigmoid, linear, leap } from "./functionNode";
 
 const eps = 1;
 const moment = 0;
@@ -22,7 +22,7 @@ export function inOutFunction(network: Network, i: number) {
         const edges: Edge[] = graphNode.edges;
         queue.shift();
         if (network.inputNode.indexOf(graphNode.countNumber) == -1) {
-            graphNode.output = sigmoid(graphNode.input);
+            graphNode.output = leap(graphNode.input);
         }
         for (let j: number = 0; j < edges.length; j++) {
             if (!used[edges[j].node]) {
@@ -50,7 +50,7 @@ export function deltaFunction(network: Network, i: number, ns: number) {
         const edges: Edge[] = graphNode.edges;
 
         if (network.outputNode.indexOf(graphNode.countNumber) !== -1) {
-            graphNode.delta = (network.dataset[ns].answer - graphNode.output) * derivativeSigmoid(graphNode.output);
+            graphNode.delta = (network.dataset[ns].answer - graphNode.output);
         }
         else {
             let delta: number = 0;
@@ -59,7 +59,7 @@ export function deltaFunction(network: Network, i: number, ns: number) {
                     delta += value.weight[i] * network.graph[value.node].delta;
                 }
             });
-            graphNode.delta = delta * derivativeSigmoid(graphNode.output);
+            graphNode.delta = delta;
         }
         for (let j: number = 0; j < edges.length; j++) {
             if (used[edges[j].node]) {

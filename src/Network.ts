@@ -19,52 +19,43 @@ export class Network {
     */
 
     public graphCreate() {
-        for (let i: number = 0; i < 8; i++) {
+        for (let i: number = 0; i < 5; i++) {
             this.graph.push(new GraphNode(i));
         }
-        this.inputNode = [0, 1, 5, 7];
+        this.inputNode = [0, 1];
         this.outputNode = [4];
         this.dataset = [{
-            set: [0, 0, 1, 1],
+            set: [0, 0],
             answer: 0
         }, {
-            set: [0, 1, 1, 1],
+            set: [0, 1],
             answer: 1
         }, {
-            set: [1, 0, 1, 1],
+            set: [1, 0],
             answer: 1
         }, {
-            set: [1, 1, 1, 1],
+            set: [1, 1],
             answer: 0
         }]
-        let a = Math.random() * 3 / 5;
+        let a = Math.random() + 1;
         this.graph[0].setEdge(2, [a, a]);
-        a = Math.random() * 3 / 5;
+        a = Math.random() - 2;
         this.graph[0].setEdge(3, [a, a]);
-        a = Math.random() * 2 / 5 - 1;
+        a = Math.random() - 2;
         this.graph[1].setEdge(2, [a, a]);
-        a = Math.random() * 2 / 5 - 1;
+        a = Math.random() + 1;
         this.graph[1].setEdge(3, [a, a]);
-        a = Math.random() * 3 / 5;
+        a = Math.random() + 1;
         this.graph[2].setEdge(4, [a, a]);
-        a = Math.random() * 2 / 5 - 1;
+        a = Math.random() + 1;
         this.graph[3].setEdge(4, [a, a]);
-        a = Math.random() * 3 / 5;
-        this.graph[5].setEdge(2, [a, a]);
-        a = Math.random() * 2 / 5 - 1;
-        this.graph[5].setEdge(3, [a, a]);
-        a = Math.random() * 2 / 5 - 1;
-        this.graph[7].setEdge(4, [a, a]);
 
         this.graph[4].setEdge(2, []);
         this.graph[4].setEdge(3, []);
-        this.graph[4].setEdge(7, []);
         this.graph[2].setEdge(0, []);
         this.graph[2].setEdge(1, []);
         this.graph[3].setEdge(0, []);
         this.graph[3].setEdge(1, []);
-        this.graph[3].setEdge(5, []);
-        this.graph[2].setEdge(5, []);
 
     }
 

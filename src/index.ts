@@ -3,6 +3,7 @@ import { GraphNode } from "./GraphNode";
 import { RootMSE } from "./errorFunction";
 import { Network } from "./Network";
 import { inOutFunction, deltaFunction, weightFunction } from "./networkFuncion";
+import { Edge } from "./Edge";
 
 const network: Network = new Network();
 const answer: number[] = [1, 0];
@@ -14,15 +15,15 @@ const print = () => {
             `countNumber: ${value.countNumber}
         delta: ${value.delta}
         input: ${value.input}
-        output: ${value.output}\n`);
-        // edges:-------------------
-        // value.edges.forEach((edge: Edge) => {
-        //     fs.appendFileSync("./log.txt",
-        //         `
-        //     node: ${edge.node}
-        //     gradient: ${edge.gradient}
-        //     weight: ${edge.weight}\n\n`);
-        // });
+        output: ${value.output}
+        edges: -------------------\n`);
+        value.edges.forEach((edge: Edge) => {
+            fs.appendFileSync("./log.txt",
+                `
+            node: ${edge.node}
+            gradient: ${edge.gradient}
+            weight: ${edge.weight[edge.weight.length - 1]}\n\n`);
+        });
     });
     fs.appendFileSync("./log.txt", `error: ${RootMSE([answer[0]], [network.graph[4].output])}\n`)
 };

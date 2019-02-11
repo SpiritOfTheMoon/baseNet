@@ -2,131 +2,343 @@ countNumber: 0
         delta: 0
         input: 0
         output: 0
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: 1.1473546263996721
+
+
+            node: 3
+            gradient: 0
+            weight: -1.0260942783418756
+
 countNumber: 1
         delta: 0
         input: 0
         output: 0
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: -1.1747570036187809
+
+
+            node: 3
+            gradient: 0
+            weight: 1.2273989178475508
+
 countNumber: 2
-        delta: -0.17267233481076927
-        input: 0.5698413492163092
-        output: 0.63872656650261
-countNumber: 3
-        delta: 0.1709357180970949
-        input: -0.770098467018524
-        output: 0.3164578062551305
-countNumber: 4
-        delta: -0.14737746488292638
-        input: 0.8191473393681261
-        output: 0.694055313952013
-countNumber: 5
-        delta: 0
-        input: 1
-        output: 1
-countNumber: 6
         delta: 0
         input: 0
         output: 0
-countNumber: 7
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.5503300269937135
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
+countNumber: 3
         delta: 0
-        input: 1
-        output: 1
-error: 0.30594468604798697
+        input: 0
+        output: 0
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.7402419402215499
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
+countNumber: 4
+        delta: 0
+        input: 0
+        output: 0
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: undefined
+
+
+            node: 3
+            gradient: 0
+            weight: undefined
+
+error: 1
 countNumber: 0
         delta: 0
         input: 0
         output: 0
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: 1.1473546263996721
+
+
+            node: 3
+            gradient: 0
+            weight: -1.0260942783418756
+
 countNumber: 1
         delta: 0
         input: 1
         output: 1
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: -1.1747570036187809
+
+
+            node: 3
+            gradient: 0
+            weight: 1.2273989178475508
+
 countNumber: 2
-        delta: 0.13119586656746038
-        input: -0.3828191758591071
-        output: 0.4054471264762438
-countNumber: 3
-        delta: -0.09204912706488604
-        input: -1.3846652519677087
-        output: 0.20026078486077328
-countNumber: 4
-        delta: 0.10719012323623843
-        input: 0.25773575261524106
-        output: 0.5640796084090671
-countNumber: 5
         delta: 0
-        input: 1
-        output: 1
-countNumber: 6
-        delta: 0
-        input: 0
+        input: -1.1747570036187809
         output: 0
-countNumber: 7
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.5503300269937135
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
+countNumber: 3
         delta: 0
-        input: 1
+        input: 1.2273989178475508
         output: 1
-error: 0.4359203915909329
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.7402419402215499
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
+countNumber: 4
+        delta: 0
+        input: 1.7402419402215499
+        output: 1
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: undefined
+
+
+            node: 3
+            gradient: 0
+            weight: undefined
+
+error: 0
 countNumber: 0
         delta: 0
         input: 1
         output: 1
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: 1.1473546263996721
+
+
+            node: 3
+            gradient: 0
+            weight: -1.0260942783418756
+
 countNumber: 1
         delta: 0
         input: 0
         output: 0
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: -1.1747570036187809
+
+
+            node: 3
+            gradient: 0
+            weight: 1.2273989178475508
+
 countNumber: 2
-        delta: 0.06394632173737842
-        input: 0.9403848426579425
-        output: 0.7191773872849117
+        delta: 0
+        input: 1.1473546263996721
+        output: 1
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.5503300269937135
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
 countNumber: 3
-        delta: -0.07922131954189084
-        input: -0.46557940523540287
-        output: 0.3856630713492296
-countNumber: 4
-        delta: 0.062360099027691275
-        input: 0.8565543490693872
-        output: 0.701940256776449
-countNumber: 5
         delta: 0
-        input: 1
-        output: 1
-countNumber: 6
-        delta: 0
-        input: 0
+        input: -1.0260942783418756
         output: 0
-countNumber: 7
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.7402419402215499
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
+countNumber: 4
         delta: 0
-        input: 1
+        input: 1.5503300269937135
         output: 1
-error: 0.298059743223551
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: undefined
+
+
+            node: 3
+            gradient: 0
+            weight: undefined
+
+error: 0
 countNumber: 0
         delta: 0
         input: 1
         output: 1
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: 1.1473546263996721
+
+
+            node: 3
+            gradient: 0
+            weight: -1.0260942783418756
+
 countNumber: 1
         delta: 0
         input: 1
         output: 1
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: -1.1747570036187809
+
+
+            node: 3
+            gradient: 0
+            weight: 1.2273989178475508
+
 countNumber: 2
-        delta: -0.18386627157639254
-        input: -0.012275682417473788
-        output: 0.4969311179336297
-countNumber: 3
-        delta: 0.14697437722656367
-        input: -1.0801461901845877
-        output: 0.2534783525240348
-countNumber: 4
-        delta: -0.14485642041114855
-        input: 0.4368872995852544
-        output: 0.6075170871273291
-countNumber: 5
         delta: 0
-        input: 1
-        output: 1
-countNumber: 6
+        input: -0.027402377219108764
+        output: 0
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.5503300269937135
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
+countNumber: 3
+        delta: 0
+        input: 0.20130463950567523
+        output: 0
+        edges: -------------------
+
+            node: 4
+            gradient: 0
+            weight: 1.7402419402215499
+
+
+            node: 0
+            gradient: 0
+            weight: undefined
+
+
+            node: 1
+            gradient: 0
+            weight: undefined
+
+countNumber: 4
         delta: 0
         input: 0
         output: 0
-countNumber: 7
-        delta: 0
-        input: 1
-        output: 1
-error: 0.3924829128726709
+        edges: -------------------
+
+            node: 2
+            gradient: 0
+            weight: undefined
+
+
+            node: 3
+            gradient: 0
+            weight: undefined
+
+error: 1
