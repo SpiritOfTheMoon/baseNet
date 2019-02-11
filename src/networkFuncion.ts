@@ -4,7 +4,7 @@ import { Edge } from "./Edge";
 import { sigmoid, derivativeSigmoid, linear } from "./functionNode";
 
 const eps = 1;
-const moment = 0.3;
+const moment = 0;
 
 let used: boolean[] = new Array(10);
 let queue: number[] = [];
